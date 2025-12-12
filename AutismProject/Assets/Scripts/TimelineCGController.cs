@@ -14,9 +14,10 @@ public class TimelineCGController : MonoBehaviour
     public AudioSource voSource;    
     public AudioClip[] allVoiceOvers; 
 
-    [Header("交互按钮配置")]
+    [Header("交互按钮/面板配置")]
     public GameObject headButton;
     public GameObject stomachButton;
+    public GameObject choicePanelPage8; // 【新增】第8页的选择面板
 
     private int currentIndex = 0;
     public bool isInteractMode = false;
@@ -71,18 +72,22 @@ public class TimelineCGController : MonoBehaviour
             voSource.Play(); 
         }
     }
-
-    // ---【重点修改在这里】---
+    
     void CheckForSpecialEvents()
     {
-        if (currentIndex == 2) // 第3页：摸头
+        if (currentIndex == 2) 
         {
-            // 开启协程：传入对应的按钮
             StartCoroutine(ShowButtonAfterVoice(headButton));
         }
-        else if (currentIndex == 3) // 第4页：捂肚子
+        else if (currentIndex == 3) 
         {
             StartCoroutine(ShowButtonAfterVoice(stomachButton));
+        }
+        // 【新增】第8页 (Index 7) 的逻辑
+        else if (currentIndex == 7) 
+        {
+            // 同样使用延时显示，等旁白说完再弹选项
+            StartCoroutine(ShowButtonAfterVoice(choicePanelPage8));
         }
     }
 
@@ -109,6 +114,19 @@ public class TimelineCGController : MonoBehaviour
         if (targetButton != null)
         {
             targetButton.SetActive(true);
+        }
+    }
+    
+    public void ForceNextPage()
+    {
+        // 只有还有下一页时才切
+        if (currentIndex < allCGs.Length - 1)
+        {
+            director.Play(); // 播放 Timeline 切页动画
+        }
+        else
+        {
+            Debug.Log("游戏通关！");
         }
     }
 

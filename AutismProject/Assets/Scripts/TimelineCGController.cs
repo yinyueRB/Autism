@@ -1,48 +1,119 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Playables; // 必须引用 Timeline 命名空间
+using UnityEngine.Playables;
+using System.Collections; // 必须引用这个，用于协程
 
 public class TimelineCGController : MonoBehaviour
 {
-    [Header("配置")]
-    public Image cgDisplay;           // 显示图片的UI
-    public Sprite[] allCGs;           // 15张图放这里
-    public PlayableDirector director; // 引用 GameManager 上的 Director
+    [Header("图像配置")]
+    public Image cgDisplay;
+    public Sprite[] allCGs;
+    public PlayableDirector director;
+
+    [Header("旁白音频配置")]
+    public AudioSource voSource;    
+    public AudioClip[] allVoiceOvers; 
+
+    [Header("交互按钮配置")]
+    public GameObject headButton;
+    public GameObject stomachButton;
 
     private int currentIndex = 0;
+    public bool isInteractMode = false;
 
     void Start()
     {
-        // 初始化第一张图
-        if (allCGs.Length > 0)
-        {
-            cgDisplay.sprite = allCGs[0];
-        }
+        if (allCGs.Length > 0) cgDisplay.sprite = allCGs[0];
+        
+        // 确保按钮隐藏
+        if(headButton) headButton.SetActive(false);
+        if(stomachButton) stomachButton.SetActive(false);
+
+        PlayCurrentVoiceOver();
     }
 
     void Update()
     {
-        // 鼠标左键点击
         if (Input.GetMouseButtonDown(0))
         {
-            // 核心逻辑：
-            // 1. 如果 Timeline 正在播放，director.state 会是 Playing，这时候不许点。
-            // 2. 只有当 Timeline 停止（由上一张图完全显示）时，才允许点。
+            if (isInteractMode) return; // 交互模式中，点击无效（等待按按钮）
+            if (voSource.isPlaying) return; // 旁白没播完，点击无效
+
             if (director.state != PlayState.Playing && currentIndex < allCGs.Length - 1)
             {
-                director.Play(); // 播放 Timeline 动画
+                director.Play(); 
             }
         }
     }
 
-    // 【重要】这个函数会被 Timeline 的 Signal 呼叫
-    // 也就是在画面全黑的那一瞬间执行
     public void OnSwapSignal()
     {
-        currentIndex++;
+        currentIndex++; 
+
+        // 1. 换图
         if (currentIndex < allCGs.Length)
         {
             cgDisplay.sprite = allCGs[currentIndex];
         }
+
+        // 2. 换音频并播放
+        PlayCurrentVoiceOver();
+
+        // 3. 检查是否需要显示按钮（并启动延时逻辑）
+        CheckForSpecialEvents();
+    }
+
+    void PlayCurrentVoiceOver()
+    {
+        if (currentIndex < allVoiceOvers.Length && allVoiceOvers[currentIndex] != null)
+        {
+            voSource.clip = allVoiceOvers[currentIndex]; 
+            voSource.Play(); 
+        }
+    }
+
+    // ---【重点修改在这里】---
+    void CheckForSpecialEvents()
+    {
+        if (currentIndex == 2) // 第3页：摸头
+        {
+            // 开启协程：传入对应的按钮
+            StartCoroutine(ShowButtonAfterVoice(headButton));
+        }
+        else if (currentIndex == 3) // 第4页：捂肚子
+        {
+            StartCoroutine(ShowButtonAfterVoice(stomachButton));
+        }
+    }
+
+    // ---【新增的延时协程】---
+    IEnumerator ShowButtonAfterVoice(GameObject targetButton)
+    {
+        // 1. 立刻锁定交互模式
+        // 这样玩家既不能切页，也点不到还没出来的按钮（当然按钮也是藏着的）
+        isInteractMode = true;
+
+        // 2. 计算需要等待的时间
+        // 如果当前有旁白在播，就等待它的长度；如果没有，就不用等
+        float waitTime = 0f;
+        if (voSource.clip != null)
+        {
+            waitTime = voSource.clip.length;
+        }
+
+        // 3. 开始等待（让旁白播完）
+        // 这里加了0.2秒缓冲，让体验更自然，不那么急促
+        yield return new WaitForSeconds(waitTime + 0.2f);
+
+        // 4. 时间到！显示按钮
+        if (targetButton != null)
+        {
+            targetButton.SetActive(true);
+        }
+    }
+
+    public void FinishInteraction()
+    {
+        isInteractMode = false;
     }
 }

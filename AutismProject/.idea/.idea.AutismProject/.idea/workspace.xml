@@ -6,8 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="efba2324-3e9e-4f7d-bc17-2d0f4af499c8" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.AutismProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutismProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Interaction_Head.controller" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Interaction_Head.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/Btn_Correct.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Btn_Correct.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/Btn_Wrong.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Btn_Wrong.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/ButtonBreathe.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/ButtonBreathe.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animation/ButtonShake.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/ButtonShake.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Audio/第八幕.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/第八幕.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Audio/第十三幕.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/第十三幕.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TimelineCGController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TimelineCGController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,20 +34,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="附加到 Unity 编辑器.附加到 Unity 编辑器">
     <configuration name="启动 Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="D:\Unity\Unity Hub\Editor\2022.3.62f1c1\Editor\Unity.exe" />
@@ -108,7 +114,8 @@
       <updated>1765467978009</updated>
       <workItem from="1765467978932" duration="21000" />
       <workItem from="1765545436044" duration="35000" />
-      <workItem from="1765546116070" duration="4445000" />
+      <workItem from="1765546116070" duration="5279000" />
+      <workItem from="1765611067808" duration="895000" />
     </task>
     <servers />
   </component>

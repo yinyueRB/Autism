@@ -17,7 +17,10 @@ public class TimelineCGController : MonoBehaviour
     [Header("交互按钮/面板配置")]
     public GameObject headButton;
     public GameObject stomachButton;
-    public GameObject choicePanelPage8; // 【新增】第8页的选择面板
+    public GameObject choicePanelPage8; // 第8页的选择面板
+    
+    [Header("麦克风交互")]
+    public GameObject micPanelPage13; // 对应第13页
 
     private int currentIndex = 0;
     public bool isInteractMode = false;
@@ -83,11 +86,16 @@ public class TimelineCGController : MonoBehaviour
         {
             StartCoroutine(ShowButtonAfterVoice(stomachButton));
         }
-        // 【新增】第8页 (Index 7) 的逻辑
+        // 第8页 (Index 7) 的逻辑
         else if (currentIndex == 7) 
         {
             // 同样使用延时显示，等旁白说完再弹选项
             StartCoroutine(ShowButtonAfterVoice(choicePanelPage8));
+        }
+        // 第13页 (Index 12)
+        else if (currentIndex == 12) 
+        {
+            StartCoroutine(ShowButtonAfterVoice(micPanelPage13));
         }
     }
 

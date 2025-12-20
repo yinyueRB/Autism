@@ -6,7 +6,7 @@ public class BodyPartClick : MonoBehaviour
 {
     [Header("必须配置")]
     public TimelineCGController controller; // 拖入 GameManager
-    public AudioSource audioSource;         // 拖入挂在自己身上的 AudioSource 组件
+    public AudioSource audioSource;         // 拖入挂在自己身上的 AudioSource
     public AudioClip feedbackVoice;         // 拖入 mp3 文件
 
     private bool isClicked = false;
@@ -15,25 +15,21 @@ public class BodyPartClick : MonoBehaviour
 
     void Start()
     {
-        // 获取自身的组件
         myImage = GetComponent<Image>();
         myAnimator = GetComponent<Animator>();
-
-        // 绑定点击事件
         GetComponent<Button>().onClick.AddListener(OnClickBodyPart);
     }
 
-    // 每次物体重新显示时（比如重玩），重置状态
     void OnEnable()
     {
         isClicked = false;
-        if (myAnimator != null) myAnimator.enabled = true; // 重新开始呼吸闪烁
-        if (myImage != null) myImage.color = new Color(1, 1, 1, 0.5f); // 恢复成半透明白色
+        if (myAnimator != null) myAnimator.enabled = true; // 恢复呼吸
+        if (myImage != null) myImage.color = new Color(1, 1, 1, 0.5f); // 恢复半透明
     }
 
     void OnClickBodyPart()
     {
-        if (isClicked) return; // 防止重复点击
+        if (isClicked) return;
         isClicked = true;
 
         StartCoroutine(FeedbackRoutine());
@@ -41,36 +37,29 @@ public class BodyPartClick : MonoBehaviour
 
     IEnumerator FeedbackRoutine()
     {
-        // 1. 立刻停止闪烁（关键步骤）
-        // 必须禁用的 Animator，否则它会覆盖我们下面设置的颜色
-        if (myAnimator != null)
-        {
-            myAnimator.enabled = false; 
-        }
+        // 1. 停止闪烁，变绿
+        if (myAnimator != null) myAnimator.enabled = false;
+        if (myImage != null) myImage.color = new Color(0f, 1f, 0f, 0.8f); 
 
-        // 2. 变绿，且设置为完全不透明
-        // new Color(R, G, B, A) -> (0, 1, 0, 1) 代表纯绿，不透明
-        if (myImage != null)
-        {
-            myImage.color = new Color(0f, 1f, 0f, 0.8f); 
-        }
-
-        // 3. 播放声音
+        // 2. 播放声音
+        float waitTime = 1.0f; // 默认等1秒
         if (audioSource != null && feedbackVoice != null)
         {
             audioSource.PlayOneShot(feedbackVoice);
+            waitTime = feedbackVoice.length; // 如果有声音，就改成等待声音的长度
         }
 
-        // 4. 停留 1 秒钟
-        yield return new WaitForSeconds(1.0f);
+        // 3. 等待声音播完 (额外加0.5秒缓冲，让体验不那么急)
+        yield return new WaitForSeconds(waitTime + 0.5f);
 
-        // 5. 告诉控制器解锁，允许切下一页
+        // 4. 【核心修改】先解锁，然后直接强制翻页！
         if (controller != null)
         {
-            controller.FinishInteraction();
+            controller.FinishInteraction(); // 解锁状态
+            controller.ForceNextPage();     // <--- 这一句实现了自动跳转
         }
 
-        // 6. 消失 (把自己关掉)
+        // 5. 隐藏自己
         gameObject.SetActive(false);
     }
 }

@@ -5,15 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efba2324-3e9e-4f7d-bc17-2d0f4af499c8" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.AutismProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.AutismProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Btn_Correct.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Btn_Correct.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/Btn_Wrong.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/Btn_Wrong.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/ButtonBreathe.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/ButtonBreathe.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Animation/ButtonShake.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animation/ButtonShake.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/第八幕.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/第八幕.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Audio/第十三幕.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Audio/第十三幕.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第七幕.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第七幕.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第七幕.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第七幕.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第三幕.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第三幕.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第三幕.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第三幕.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第九幕.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第九幕.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第九幕.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第九幕.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第八幕.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第八幕.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第八幕.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第八幕.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第四幕.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第四幕.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Pictures/第四幕.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Pictures/第四幕.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TimelineCGController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TimelineCGController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BodyPartClick.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BodyPartClick.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +119,7 @@
       <workItem from="1765545436044" duration="35000" />
       <workItem from="1765546116070" duration="5279000" />
       <workItem from="1765611067808" duration="895000" />
+      <workItem from="1765787316036" duration="683000" />
     </task>
     <servers />
   </component>

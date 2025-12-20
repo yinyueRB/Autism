@@ -1388,7 +1388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1384507962
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1424,7 +1424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainController: {fileID: 1517713130}
   volumeBar: {fileID: 1353547416}
-  sensitivity: 25
+  sensitivity: 20
   threshold: 0.5
   sfxSource: {fileID: 1517713134}
   successClip: {fileID: 8300000, guid: eff81c41fcac63248a8e8416428409d7, type: 3}

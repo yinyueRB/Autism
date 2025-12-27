@@ -5,38 +5,39 @@ using System.Collections;
 public class SocialChoice : MonoBehaviour
 {
     [Header("核心引用")]
-    public TimelineCGController mainController; // 拖入 GameManager
+    public TimelineCGController mainController; 
     public Button correctBtn;
     public Button wrongBtn;
 
     [Header("音频配置")]
-    public AudioSource uiAudioSource; // 用来播放按钮声音的喇叭
+    public AudioSource uiAudioSource; 
     public AudioClip correctVoice;    // "老师我不舒服"
     public AudioClip wrongVoice;      // "我要玩玩具"
     public AudioClip successSFX;      // 叮咚！正确提示音
+    
+    // 【新增】夸奖语音
+    public AudioClip praiseVoice;     // "小朋友你做对啦"
 
     [Header("动画")]
-    public Animator wrongBtnAnimator; // 拖入 Btn_Wrong 上的 Animator
+    public Animator wrongBtnAnimator; 
 
-    private bool isHandlingClick = false; // 防止狂点
+    private bool isHandlingClick = false; 
 
     void Start()
     {
-        // 自动绑定点击事件
         correctBtn.onClick.AddListener(OnCorrectClick);
         wrongBtn.onClick.AddListener(OnWrongClick);
     }
 
     void OnEnable()
     {
-        isHandlingClick = false; // 每次面板显示时重置状态
+        isHandlingClick = false; 
     }
 
-    // --- 选中正确选项 ---
     void OnCorrectClick()
     {
         if (isHandlingClick) return;
-        isHandlingClick = true; // 锁定，防止重复点
+        isHandlingClick = true; 
 
         StartCoroutine(CorrectRoutine());
     }
@@ -46,38 +47,37 @@ public class SocialChoice : MonoBehaviour
         // 1. 播放“老师我不舒服”
         uiAudioSource.clip = correctVoice;
         uiAudioSource.Play();
-
-        // 2. 等待语音播完 (或者固定等几秒)
+        // 等待这句话说完
         yield return new WaitForSeconds(correctVoice.length);
 
-        // 3. 播放正确音效 (叮咚!)
+        // 2. 播放正确音效 (叮咚!)
         uiAudioSource.PlayOneShot(successSFX);
-        
-        // 4. 等待音效稍微响一下
+        // 等待音效响一会儿 (比如1秒)
         yield return new WaitForSeconds(1.0f);
 
-        // 5. 隐藏面板
-        gameObject.SetActive(false);
-
-        // 6. 【关键】告诉主控制器：强制进入下一页
-        mainController.FinishInteraction(); // 解锁
-        mainController.ForceNextPage();     // 强制切页
-    }
-
-    // --- 选中干扰选项 ---
-    void OnWrongClick()
-    {
-        // 错误选项不需要锁死，可以让孩子反复点，直到选对
-        // 1. 播放“我要玩玩具”
-        uiAudioSource.Stop(); // 打断之前的声音
-        uiAudioSource.PlayOneShot(wrongVoice);
-
-        // 2. 触发晃动动画
-        if (wrongBtnAnimator != null)
+        // --- 【新增】播放夸奖语音 ---
+        if (praiseVoice != null)
         {
-            wrongBtnAnimator.SetTrigger("Shake");
+            uiAudioSource.PlayOneShot(praiseVoice);
+            // 等待夸奖说完，再多加0.5秒缓冲
+            yield return new WaitForSeconds(praiseVoice.length + 0.5f);
+        }
+        else
+        {
+            // 如果没配置夸奖语音，就稍微等一下，别切太快
+            yield return new WaitForSeconds(1.0f);
         }
 
-        // 3. 不做任何跳转，停留在当前页
+        // 4. 结束
+        gameObject.SetActive(false);
+        mainController.FinishInteraction(); 
+        mainController.ForceNextPage();     
+    }
+
+    void OnWrongClick()
+    {
+        uiAudioSource.Stop(); 
+        uiAudioSource.PlayOneShot(wrongVoice);
+        if (wrongBtnAnimator != null) wrongBtnAnimator.SetTrigger("Shake");
     }
 }

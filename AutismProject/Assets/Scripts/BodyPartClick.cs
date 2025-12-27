@@ -5,61 +5,63 @@ using System.Collections;
 public class BodyPartClick : MonoBehaviour
 {
     [Header("必须配置")]
-    public TimelineCGController controller; // 拖入 GameManager
-    public AudioSource audioSource;         // 拖入挂在自己身上的 AudioSource
-    public AudioClip feedbackVoice;         // 拖入 mp3 文件
+    public TimelineCGController controller; 
+    public AudioSource audioSource;         
+    public AudioClip feedbackVoice;         
 
     private bool isClicked = false;
     private Image myImage;
     private Animator myAnimator;
+    
+    // 【新增】用来记住原本的黄色
+    private Color originalColor; 
 
-    void Start()
+    void Awake() // 改用 Awake 确保最早执行
     {
         myImage = GetComponent<Image>();
         myAnimator = GetComponent<Animator>();
         GetComponent<Button>().onClick.AddListener(OnClickBodyPart);
+
+        // 记住一开始在 Inspector 里设置的颜色
+        if (myImage != null) originalColor = myImage.color;
     }
 
     void OnEnable()
     {
         isClicked = false;
         if (myAnimator != null) myAnimator.enabled = true; // 恢复呼吸
-        if (myImage != null) myImage.color = new Color(1, 1, 1, 0.5f); // 恢复半透明
+        
+        // 【核心修复】强制恢复成原本的颜色（黄色），而不是白色或绿色
+        if (myImage != null) myImage.color = originalColor; 
     }
 
     void OnClickBodyPart()
     {
         if (isClicked) return;
         isClicked = true;
-
         StartCoroutine(FeedbackRoutine());
     }
 
     IEnumerator FeedbackRoutine()
     {
-        // 1. 停止闪烁，变绿
         if (myAnimator != null) myAnimator.enabled = false;
-        if (myImage != null) myImage.color = new Color(0f, 1f, 0f, 0.8f); 
+        if (myImage != null) myImage.color = Color.green; // 变绿
 
-        // 2. 播放声音
-        float waitTime = 1.0f; // 默认等1秒
+        float waitTime = 1.0f;
         if (audioSource != null && feedbackVoice != null)
         {
             audioSource.PlayOneShot(feedbackVoice);
-            waitTime = feedbackVoice.length; // 如果有声音，就改成等待声音的长度
+            waitTime = feedbackVoice.length;
         }
 
-        // 3. 等待声音播完 (额外加0.5秒缓冲，让体验不那么急)
         yield return new WaitForSeconds(waitTime + 0.5f);
 
-        // 4. 【核心修改】先解锁，然后直接强制翻页！
         if (controller != null)
         {
-            controller.FinishInteraction(); // 解锁状态
-            controller.ForceNextPage();     // <--- 这一句实现了自动跳转
+            controller.FinishInteraction(); 
+            controller.ForceNextPage();     
         }
-
-        // 5. 隐藏自己
+        
         gameObject.SetActive(false);
     }
 }
